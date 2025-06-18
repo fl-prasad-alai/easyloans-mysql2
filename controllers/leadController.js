@@ -15,15 +15,29 @@ exports.createLead = async (req, res, next) => {
       return res.status(400).json({ error: 'Invalid JSON in lead field' });
     }
 
-    const documents = req.files || []; // uploaded files from Multer
+    const documents = req.files || [];
     const result = await leadService.createLead({ ...leadData, documents });
 
     res.status(201).json({ message: 'Loan Application Processed', result });
   } catch (error) {
     console.error('❌ Error creating lead:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
+
+    // If it's a CIBIL score rejection, respond with 200 and status
+    if (
+      error.message.includes('CIBIL score too low') ||
+      error.message.includes('loan approval')
+    ) {
+      return res.status(200).json({
+        message: 'Loan Rejected due to low CIBIL Score',
+        status: 'Rejected',
+        reason: error.message,
+      });
+    }
+
+    res.status(error.statusCode || 500).json({ error: error.message });
   }
 };
+
 
 // ✅ Get all leads
 exports.getAllLeads = async (req, res, next) => {
@@ -31,7 +45,7 @@ exports.getAllLeads = async (req, res, next) => {
     const leads = await leadService.getAllLeads();
     res.status(200).json(leads);
   } catch (error) {
-    console.error('❌ Error fetching leads:', error);
+    console.error('❌ Error fetching leads:', error.message);
     next(error);
   }
 };

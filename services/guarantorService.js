@@ -6,8 +6,8 @@ exports.createOrFetchGuarantor = async (data) => {
   if (rows.length) return rows[0];
 
   const [result] = await db.execute(
-    'INSERT INTO guarantors (mobile, relation_to_applicant) VALUES (?, ?)',
-    [data.mobile, data.relation_to_applicant]
+    'INSERT INTO guarantors (mobile, relation_to_applicant,customer_id) VALUES (?, ?, ?)',
+    [data.mobile, data.relation_to_applicant, data.customer_id]
   );
 
   return { id: result.insertId, ...data };

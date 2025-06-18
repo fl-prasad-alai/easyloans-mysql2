@@ -5,10 +5,17 @@ exports.createOrFetchCustomer = async (data) => {
   if (rows.length) return rows[0];
 
   const [result] = await db.execute(
-    'INSERT INTO customers (first_name, last_name, applicant_type, mobile) VALUES (?, ?, ?, ?)',
-    [data.first_name, data.last_name, data.applicant_type, data.mobile, data.dob || '',
-      data.address || '']
-  );
+  'INSERT INTO customers (first_name, last_name, applicant_type, mobile, dob, address) VALUES (?, ?, ?, ?, ?, ?)',
+  [
+    data.first_name ?? null,
+    data.last_name ?? null,
+    data.applicant_type ?? null,
+    data.mobile ?? null,
+    data.dob ?? null,
+    data.address ?? null
+  ]
+);
+
   return { id: result.insertId, ...data };
 };
 

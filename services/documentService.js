@@ -2,8 +2,15 @@ const db = require('../config/db');
 
 exports.saveDocument = async (file, { type, customer_id, loan_id }) => {
   const [result] = await db.execute(
-    'INSERT INTO documents (customer_id, loan_id, file_name, type, file_path) VALUES (?, ?, ?, ?, ?)',
-    [customer_id, loan_id, file.originalname, type, file.path]
+    'INSERT INTO documents (customer_id, loan_id, file_name, name, type, path) VALUES (?, ?, ?, ?, ?, ?)',
+    [
+      customer_id,
+      loan_id,
+      file.originalname,
+      file.originalname, // for name column
+      type,
+      file.path
+    ]
   );
 
   return {
@@ -11,10 +18,12 @@ exports.saveDocument = async (file, { type, customer_id, loan_id }) => {
     customer_id,
     loan_id,
     file_name: file.originalname,
+    name: file.originalname,
     type,
-    file_path: file.path
+    path: file.path
   };
 };
+
 
 exports.storeDocuments = async ({ customer_id, loan_id, documents }) => {
   for (const doc of documents) {
