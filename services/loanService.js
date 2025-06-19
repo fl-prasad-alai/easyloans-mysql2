@@ -38,9 +38,9 @@ exports.getAllLoansDetailed = async () => {
   const [rows] = await db.query(`
     SELECT 
       loans.*, 
-      customers.name AS customer_name,
+      CONCAT(customers.first_name, ' ', customers.last_name) AS customer_name,
       businesses.name AS business_name,
-      guarantors.name AS guarantor_name
+      guarantors.mobile AS guarantor_mobile
     FROM loans
     JOIN customers ON loans.customer_id = customers.id
     LEFT JOIN businesses ON loans.business_id = businesses.id
@@ -48,6 +48,7 @@ exports.getAllLoansDetailed = async () => {
   `);
   return rows;
 };
+
 
 // Get a loan by ID
 exports.getLoanById = async (id) => {

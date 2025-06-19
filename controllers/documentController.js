@@ -24,11 +24,22 @@ exports.getDocumentById = async (req, res, next) => {
   }
 };
 
-// ✅ Get all documents for a customer
+// ✅ Get all documents for a customer — WITH PUBLIC LINK
 exports.getDocumentsByCustomer = async (req, res, next) => {
   try {
     const documents = await documentService.getDocumentsByCustomerId(req.params.customerId);
-    res.status(200).json(documents);
+
+    // Add a direct URL to each document
+    const docsWithUrls = documents.map(doc => {
+      const fileName = path.basename(doc.path);
+      const publicUrl = `${req.protocol}://${req.get('host')}/uploads/${fileName}`;
+      return {
+        ...doc,
+        url: publicUrl
+      };
+    });
+
+    res.status(200).json(docsWithUrls);
   } catch (error) {
     console.error('❌ Error fetching documents:', error);
     next(error);
