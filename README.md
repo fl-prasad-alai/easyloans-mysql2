@@ -1,6 +1,6 @@
 # 🏦 EasyLoans - MSME/SME Loan Management API
 
-**EasyLoans** is a modular backend system for managing SME/MSME loan applications. Built using **Node.js**, **Express.js**, and **MySQL2**, the system captures customer, business, guarantor, loan, and document data in a single API request. It also validates CIBIL eligibility and stores uploaded documents locally.
+**EasyLoans** is a modular backend system for managing SME/MSME loan applications. Built using **Node.js**, **Express.js**, and **MySQL2**, the system captures & integrates customer, business, guarantor, loan, and document data in a single API request. It also validates CIBIL eligibility and stores uploaded documents locally.
 
 Tested and debugged using **Postman**, the system is designed to be modular, extensible, and developer-friendly.
 
