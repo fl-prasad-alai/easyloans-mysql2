@@ -13,6 +13,7 @@ Tested and debugged using **Postman**, the system is designed to be modular, ext
 - **MySQL2** (via XAMPP/MySQL server)
 - **Multer** (for file uploads)
 - **dotenv**
+- **Thunderclient**
 - **Postman** - for API testing
 
 ---
