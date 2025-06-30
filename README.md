@@ -31,8 +31,8 @@ easyloans/
 │ ├── leadController.js
 │ └── loanController.js
 ├── middlewares/
-│ ├── errorHandler.js # Global error handling
-│ └── fileUpload.js # Multer config for document uploads
+│ ├── errorHandler.js # A Global error handling
+│ └── fileUpload.js # A Multer config for document uploads
 ├── routes/ # API endpoints
 │ ├── businessRoutes.js
 │ ├── customerRoutes.js
