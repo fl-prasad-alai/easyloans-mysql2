@@ -10,7 +10,6 @@ Tested and debugged using **Postman**, the system is designed to be modular, rel
 
 - **Node.js**
 - **Express.js**
-- **Nest.js**
 - **MySQL2** (via XAMPP/MySQL server)
 - **Multer** (for file uploads)
 - **dotenv**
